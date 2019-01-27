@@ -10,4 +10,4 @@ $pdocon = new PDO('mysql:host=localhost;port=3306;dbname=mtap',
    'usrmtapp', 'pwdmtapp');
 // See the "errors" folder for details...
 $pdocon->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$logfile = ''; 
+$logfile = '/home/nnk/mtap.log'; 

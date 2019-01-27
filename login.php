@@ -33,7 +33,7 @@ Bzz
         if($_SERVER["REQUEST_METHOD"] == "POST") {
         $myusername = $_POST['username'];
         $mypassword = $_POST['password'];
-        
+        $dt = date("Y-m-d H:i:s");
         $sql = "SELECT user FROM users WHERE user = :myusername and password = :mypassword";
         $sth = $pdocon->prepare($sql);
         $sth->execute(
@@ -44,7 +44,7 @@ Bzz
         $count = $sth->rowCount();
         if($count === 1) {
          $_SESSION['login_user'] = $myusername;
-         
+         error_log($dt . ' User ' . $_POST['username'] . ' logged in successfully' . PHP_EOL , 3, $logfile);
          header("location: routers.php");
       }else {
          $error = "Your Login Name or Password is invalid";

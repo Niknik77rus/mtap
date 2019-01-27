@@ -55,8 +55,8 @@ and open the template in the editor.
     $stmt = $pdocon->prepare($sql);
     $stmt->execute();
     while ($row= $stmt->fetch(PDO::FETCH_ASSOC)) {
-    
-    echo  $row['id'], '  ', $row['router'], ' ', $row['router_ip'], "<br>";
+        $linkaddress = 'bridge-filters.php?id='.$row['id'];
+        echo  "<a href='".$linkaddress."'> Select this router: </a>", ' ', $row['id'], '  ', $row['router'], ' ', $row['router_ip'] , "<br>"; 
     }
 
     if ( isset($_POST['router']) && isset($_POST['router_ip']) && isset($_POST['router_login']) && isset($_POST['router_pwd'])) {
@@ -72,6 +72,8 @@ and open the template in the editor.
         ':rtpwd' => $_POST['router_pwd'])
     );
     echo 'New router added';
+    error_log($dt . ' User ' . $_SESSION['login_user'] . ' added new router with ip: ' . $_POST['router_ip'] . PHP_EOL , 3, $logfile);
+
 }
 ?>
     </body>
