@@ -8,8 +8,12 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8"> 
         <title></title>
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
     </head>
     <body>
+        <script src="js/bootstrap.min.js"></script>
+
         
         
         <div class="container">
@@ -23,7 +27,6 @@ and open the template in the editor.
 <input type="submit" name="cancel" value="Cancel">
 </form>
 <p>
-Bzz
 
 </p>
 </div>

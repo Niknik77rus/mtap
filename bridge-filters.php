@@ -4,12 +4,29 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
+<?php
+        include('session.php');
+        if(isset($_SESSION['login_user']))
+         {
+          echo '<h3>', 'Welcome ', $_SESSION['login_user'], '</h3>';
+         }
+        else {
+            echo 'session is invalid'."<br>";
+            die("Name parameter missing");
+            
+        } 
+        echo '<p><a href = "logout.php">Sign Out</a></p>';
+?>
 <html>
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
     </head>
     <body>
+        <script src="js/bootstrap.min.js"></script>
         <H3>add or remove filter:</H3>
         <form method="post">
         <p>Action (if adding):
@@ -24,16 +41,6 @@ and open the template in the editor.
         <?php
         require('include/routeros_api.class.php');
         
-        include('session.php');
-        if(isset($_SESSION['login_user']))
-         {
-          echo '<h3>'. 'Welcome ', $_SESSION['login_user'], '</h3>', PHP_EOL;
-         }
-        else {
-            echo 'session is invalid'."<br>";
-            die("Name parameter missing");
-            
-        } 
         $dt = date("Y-m-d H:i:s");
 
         if  (isset($_GET['id']))  {
@@ -57,7 +64,8 @@ and open the template in the editor.
                 $API->comm("/interface/bridge/filter/add", array(
                 "action"  => $_POST['action'],
                 "chain" => $_POST['chain'],
-                "src-mac-address"      => $_POST['src-mac-address'].'/FF:FF:FF:FF:FF:FF'
+                "src-mac-address"      => $_POST['src-mac-address'].'/FF:FF:FF:FF:FF:FF',
+                "place-before" => '0'  
                 ));
                 echo '<br>', "Added new filter for mac: ", $_POST['src-mac-address'];
                 error_log(date("Y-m-d H:i:s") . ' User ' . $_SESSION['login_user'] . 
@@ -96,25 +104,23 @@ and open the template in the editor.
                 }    
                 
         $API = new RouterosAPI();
-        if ($API->connect($router_ip, $router_login, $router_pwd)) {
-            $API->write('/interface/bridge/filter/print'); 
-            $READ = $API->read(false);
-            $ARRAY = $API->parseResponse($READ);
-            $API->disconnect();
-            echo '<H3>current list of filtering rules from router: '. $router_ip. '</H3>';
-            foreach($ARRAY as $item) {
-                echo '<br>' .  $item['.id'] . ' ' . $item['action'] . ' ' . $item['src-mac-address']; 
-            }
-        }
+               
         if ($API->connect($router_ip, $router_login, $router_pwd)) {
             $API->write('/ip/arp/print'); 
             $READ = $API->read(false);
             $ARRAY = $API->parseResponse($READ);
             $API->disconnect();
             echo '<H3>current list of ARP entries on router: '. $router_ip. '</H3>';
+            echo "<table id='ARP list' border='1'>\n";
             foreach($ARRAY as $item) {
-                echo '<br>' .  $item['.id'] . ' ' . $item['address'] . ' ' . $item['mac-address'] . ' ' . $item['interface']; 
+                echo "<tr>\n";
+                echo "  <td class='mark'>ID " .  $item['.id'] . "</td>\n" . 
+                       "<td class='mark'>" . $item['address'] . "</td>\n" . ' ' . 
+                       "<td class='mark'>" . $item['mac-address'] . "</td>\n" . 
+                       "<td class='mark'>" . $item['interface'] . "</td>\n"; 
+                echo "</tr>\n<tr>\n";
             }
+            echo "</table>\n";  
         }
         
 

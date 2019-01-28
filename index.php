@@ -8,8 +8,11 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        
     </head>
     <body>
+        <script src="js/bootstrap.min.js"></script>
         <br> welcome to Mikrotik WebApp
         <br><a href="/login.php">Please Log In</a>
         <?php
