@@ -4,8 +4,19 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
- <img src="include/IA-logo.png" alt="AI logo">
-<?php
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    </head>
+    <body>
+        <script src="js/bootstrap.min.js"></script>
+         <img src="include/IA-logo.png" alt="AI logo">
+
+        <?php
         include('session.php');
       
         if(isset($_SESSION['login_user']))
@@ -18,16 +29,8 @@ and open the template in the editor.
             
         } 
         echo '<p><a href = "logout.php">Sign Out</a></p>';
-?>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-
-    </head>
-    <body>
-        <script src="js/bootstrap.min.js"></script>
+        ?>
+        
         <H3>add or remove filter:</H3>
         <form method="post">
         <p>Action (if adding):
