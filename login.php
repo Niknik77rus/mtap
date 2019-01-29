@@ -13,6 +13,8 @@ and open the template in the editor.
     </head>
     <body>
         <script src="js/bootstrap.min.js"></script>
+        <img src="include/IA-logo.png" alt="AI logo">
+
 
         
         

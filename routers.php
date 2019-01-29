@@ -15,7 +15,8 @@ and open the template in the editor.
 
     <body>
         <script src="js/bootstrap.min.js"></script>
-      
+        <img src="include/IA-logo.png" alt="AI logo">
+
         <?php
         include('session.php');
         if(isset($_SESSION['login_user']))

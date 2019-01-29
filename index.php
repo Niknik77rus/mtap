@@ -13,6 +13,7 @@ and open the template in the editor.
     </head>
     <body>
         <script src="js/bootstrap.min.js"></script>
+        <img src="include/IA-logo.png" alt="AI logo">
         <br> welcome to Mikrotik WebApp
         <br><a href="/login.php">Please Log In</a>
         <?php
