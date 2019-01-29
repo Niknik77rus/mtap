@@ -54,19 +54,30 @@ and open the template in the editor.
                     error_log($dt . ' User ' . $_SESSION['login_user'] . ' select for configuring router with ip: ' . $row['router_ip'] . PHP_EOL , 3, $logfile);
 
 
-                }        
-        
+                }                
         
         function add_filter($router_ip, $router_login, $router_pwd, $logfile)
             {
                 $API = new RouterosAPI();
                 if ($API->connect($router_ip, $router_login, $router_pwd)) {
+                $API->write('/interface/bridge/filter/print'); 
+                $READ = $API->read(false);
+                $ARRAY = $API->parseResponse($READ);
+                if (count($ARRAY) == 0) {
+                $API->comm("/interface/bridge/filter/add", array(
+                "action"  => $_POST['action'],
+                "chain" => $_POST['chain'],
+                "src-mac-address"      => $_POST['src-mac-address'].'/FF:FF:FF:FF:FF:FF',
+                ));
+                }
+                else {
                 $API->comm("/interface/bridge/filter/add", array(
                 "action"  => $_POST['action'],
                 "chain" => $_POST['chain'],
                 "src-mac-address"      => $_POST['src-mac-address'].'/FF:FF:FF:FF:FF:FF',
                 "place-before" => '0'  
-                ));
+                ));    
+                }
                 echo '<br>', "Added new filter for mac: ", $_POST['src-mac-address'];
                 error_log(date("Y-m-d H:i:s") . ' User ' . $_SESSION['login_user'] . 
                         ' added on: ' . $router_ip .
